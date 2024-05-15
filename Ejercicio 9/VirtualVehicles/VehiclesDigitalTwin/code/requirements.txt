@@ -1,0 +1,3 @@
+requests
+python-math
+paho-mqtt < 2.0.0
