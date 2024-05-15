@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  mosquitto:
+    build: ./mosquitto
+    ports:
+      - "1883:1883"
+    volumes:
+      - "./mosquitto/code/mosquitto.conf:/etc/mosquitto/mosquitto.conf"
+
+  message_router:
+    build: ./message_router
+    environment:
+      - MQTT_SERVER_ADDRESS=mosquitto
+      - MQTT_SERVER_PORT=1883
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - "./message_router/code:/etc/usr/src/app"
+    depends_on:
+      - mosquitto
